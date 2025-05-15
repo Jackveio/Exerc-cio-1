@@ -1,0 +1,31 @@
+#include <stdio.h>
+
+#define MAX 100
+
+struct Aluno {
+    char nome[50];
+    int matricula;
+    float media;
+};
+
+int main() {
+    struct Aluno alunos[MAX];
+    int n, i;
+
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        scanf("%s", alunos[i].nome);
+        scanf("%d", &alunos[i].matricula);
+        scanf("%f", &alunos[i].media);
+    }
+
+    printf("Alunos aprovados:\n");
+    for (i = 0; i < n; i++) {
+        if (alunos[i].media >= 7.0) {
+            printf("%s %d %.2f\n", alunos[i].nome, alunos[i].matricula, alunos[i].media);
+        }
+    }
+
+    return 0;
+}

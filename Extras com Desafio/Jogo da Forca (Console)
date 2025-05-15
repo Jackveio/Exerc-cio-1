@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+#define TAM 100
+
+int main() {
+    char palavraSecreta[TAM] = "computador";
+    char letrasDescobertas[TAM];
+    int chances = 6, tamanho = strlen(palavraSecreta);
+    char letra;
+    int i, acertos = 0, acertou;
+
+    for (i = 0; i < tamanho; i++)
+        letrasDescobertas[i] = '_';
+    letrasDescobertas[tamanho] = '\0';
+
+    while (chances > 0 && acertos < tamanho) {
+        printf("\nPalavra: ");
+        for (i = 0; i < tamanho; i++)
+            printf("%c ", letrasDescobertas[i]);
+        printf("\nChances restantes: %d\n", chances);
+        printf("Digite uma letra: ");
+        scanf(" %c", &letra);
+        letra = tolower(letra);
+
+        acertou = 0;
+        for (i = 0; i < tamanho; i++) {
+            if (palavraSecreta[i] == letra && letrasDescobertas[i] == '_') {
+                letrasDescobertas[i] = letra;
+                acertos++;
+                acertou = 1;
+            }
+        }
+
+        if (!acertou)
+            chances--;
+    }
+
+    if (acertos == tamanho)
+        printf("\nParabéns! Você acertou: %s\n", palavraSecreta);
+    else
+        printf("\nFim de jogo! A palavra era: %s\n", palavraSecreta);
+
+    return 0;
+}

@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+struct Produto {
+    char nome[50];
+    int codigo;
+    int quantidade;
+    float preco;
+};
+
+void cadastrar(struct Produto produtos[], int *n) {
+    printf("Nome: ");
+    scanf(" %[^\n]", produtos[*n].nome);
+    printf("Código: ");
+    scanf("%d", &produtos[*n].codigo);
+    printf("Quantidade: ");
+    scanf("%d", &produtos[*n].quantidade);
+    printf("Preço: ");
+    scanf("%f", &produtos[*n].preco);
+    (*n)++;
+}
+
+void buscar(struct Produto produtos[], int n) {
+    int codigo, i, encontrado = 0;
+    printf("Digite o código do produto: ");
+    scanf("%d", &codigo);
+    for (i = 0; i < n; i++) {
+        if (produtos[i].codigo == codigo) {
+            printf("Nome: %s\n", produtos[i].nome);
+            printf("Código: %d\n", produtos[i].codigo);
+            printf("Quantidade: %d\n", produtos[i].quantidade);
+            printf("Preço: %.2f\n", produtos[i].preco);
+            encontrado = 1;
+            break;
+        }
+    }
+    if (!encontrado) {
+        printf("Produto não encontrado.\n");
+    }
+}
+
+void listar(struct Produto produtos[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("Nome: %s\n", produtos[i].nome);
+        printf("Código: %d\n", produtos[i].codigo);
+        printf("Quantidade: %d\n", produtos[i].quantidade);
+        printf("Preço: %.2f\n\n", produtos[i].preco);
+    }
+}
+
+int main() {
+    struct Produto produtos[MAX];
+    int n = 0, opcao;
+
+    do {
+        printf("1. Cadastrar produto\n");
+        printf("2. Buscar produto\n");
+        printf("3. Listar produtos\n");
+        printf("0. Sair\n");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                if (n < MAX) cadastrar(produtos, &n);
+                else printf("Limite de produtos atingido.\n");
+                break;
+            case 2:
+                buscar(produtos, n);
+                break;
+            case 3:
+                listar(produtos, n);
+                break;
+        }
+    } while (opcao != 0);
+
+    return 0;
+}
